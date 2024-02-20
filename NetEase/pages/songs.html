@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css_sheets/netease-import.css">
+    <script src="../scripts/jquery.fake.js"></script>
+    <style>
+        input,.like,.list-fn{user-select: none;}
+        #songs-top {
+            display: flex;
+            align-items: stretch;
+            margin: 20px 0 0 0;
+        }
+
+
+        span.list-fn{
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            border: 1px solid #000;
+            font-family: "FontAwesome";
+        }
+        span.list-fn>span{font-weight: 900; padding: 0 2px;}
+
+        #playall{color: #fff; background-color: #ff3838;}
+        
+        #topic{
+            display: flex;
+            flex-direction: column;
+        }
+
+        #topic>a{
+            height: 40px;
+            display: flex;
+            align-items: center;
+            font-weight: lighter;
+            font-size: small;
+            margin-top: 10px;
+        }
+        #topic>a>img{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin: 5px 10px 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="songs-top">
+        <img src="" alt="" class="album-pic-lg">
+        <div style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div id="topic">
+                <span style="font-weight: bold; font-size: x-large;">我喜欢的音乐</span>
+                <a><img src="" alt="">User 1</a>
+            </div>
+            <div>
+                <span class="list-fn" id="playall"><span>&#xf04b;</span>播放全部</span>
+                <span class="list-fn"><span>&#xf34a;</span>下载</span>
+                <span class="list-fn"><span>&#xf141;</span></span>
+            </div>
+        </div>
+    </div>
+    <div class="list-layout list-head">
+        <div>#</div>
+        <div>标题</div>
+        <div>专辑</div>
+        <div>喜欢</div>
+        <div>时长</div>
+    </div>
+    <!-- 收藏动效可以用input:checkbox加伪类但是.toggle()更方便:( -->
+    <div class="list-layout list-item">
+        <div>01</div>
+        <div class="main-item">
+            <img src="" alt="" class="album-pic-sm">
+            <div style="display: flex; flex-direction: column;">
+                <span class="song-name">sdf</span>
+                <span class="author">rgqerh</span>
+            </div>
+        </div>
+        <div>ABC</div>
+        <div class="like">&#xf004;</div>
+        <div>05:23</div>
+    </div>
+</body>
+<script>
+    $(".like").clicker(a=>a.target.toggle("liked"));
+</script>
+</html>

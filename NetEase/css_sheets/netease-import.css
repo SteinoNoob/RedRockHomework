@@ -1,0 +1,159 @@
+@font-face {
+    font-family: "FontAwesome";
+    src: url("../FontAwesomev5/fa-regular-400.ttf") format("truetype");
+    font-weight: 400;
+    font-display: block;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "FontAwesome";
+    src: url("../FontAwesomev5/fa-solid-900.ttf") format("truetype");
+    font-weight: 900;
+    font-display: block;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "FontAwesome Brands";
+    src: url("../FontAwesomev5/fa-brands-400.ttf") format("truetype");
+    font-weight: 400;
+    font-display: block;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "FontAwesome Duotone";
+    src: url("../FontAwesomev5/fa-brands-400.ttf") format("truetype");
+    font-weight: 900;
+    font-display: block;
+    font-style: normal;
+}
+
+:root {
+    --ne-gray: #A9ADB6;
+    /*字体灰*/
+    --ne-lred: #ff3838;
+    /*鲜红*/
+    --ne-sgray: #787F8D;
+    /*侧边灰*/
+    --ne-cmtbar: #F0F3F6;
+    /*输入框背景*/
+    --ne-cmtbgc: #F7F9FC;
+    /*评论背景*/
+    --ne-lsbgc: #F0F3F6;
+    /*左边栏背景*/
+    --ne-lgray: #F2F3F4;
+    /*浅灰*/
+}
+
+/* 歌曲列表样式 */
+
+.list-layout {
+    display: grid;
+    grid-template-columns: 1fr 8fr 5fr 1fr 2fr;
+    align-items: center;
+    color: #7b8290;
+}
+
+.list-head {
+    margin: 50px 0 10px 0;
+    height: 40px;
+    border-bottom: 1px solid #b4b4b4;
+}
+
+.list-layout,
+.list-head {
+    margin-left: 30px;
+}
+
+.list-head.list-layout div {
+    /* border: 1px solid #000; */
+    font-size: small;
+}
+
+.list-item {
+    height: 70px;
+    border-radius: 10px;
+}
+
+.list-item:hover {
+    background-color: #f3f3f3;
+}
+
+.list-item>div:not(.main-item, .like) {
+    font-size: small;
+}
+
+.list-item>div:nth-child(2) {
+    display: flex;
+    align-items: center;
+}
+
+div.like {
+    font-family: "FontAwesome";
+    font-weight: 400;
+    font-size: x-large;
+}
+
+div.like.liked {
+    font-weight: 900;
+    color: rgb(255, 56, 56);
+}
+
+.song-name {
+    color: #000;
+}
+
+.author {
+    font-size: small;
+}
+
+/* end */
+
+/* 小选项卡样式 */
+.nav {
+    display: flex;
+    margin-top: 50px;
+}
+
+.nav .nav-option {
+    padding: 10px 15px;
+    font-size: 110%;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--ne-gray);
+}
+
+.nav .nav-option.selected {
+    font-weight: bold;
+    color: #000;
+}
+
+.nav .nav-option.selected::after {
+    content: "";
+    width: 20px;
+    height: 0;
+    border: 2px solid #ff3838;
+    border-radius: 2px;
+    display: block;
+}
+
+/* end */
+
+/* 图片尺寸 */
+.album-pic-lg {
+    width: 200px;
+    height: 200px;
+    margin: 0 30px;
+    border-radius: 10px;
+}
+
+.album-pic-sm {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    margin-right: 10px;
+}

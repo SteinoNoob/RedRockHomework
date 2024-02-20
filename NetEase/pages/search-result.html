@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css_sheets/netease-import.css">
+    <script src="../scripts/jquery.fake.js"></script>
+    <style>
+        html {
+            background-color: var(--ne-cmtbgc);
+        }
+
+        input,
+        .like {
+            user-select: none;
+        }
+
+        #songs-top {
+            margin: 30px 0 0 0;
+        }
+
+        #songs-top>div:not(.nav) {
+            color: var(--ne-gray);
+            margin-left: 30px;
+        }
+
+        #songs-top strong {
+            font-size: x-large;
+            color: #000;
+            padding: 0 5px 0 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="songs-top">
+        <div><strong></strong>的搜索结果如下，找到<span></span>首单曲</div>
+        <div class="nav">
+            <span class="nav-option">综合</span>
+            <span class="nav-option selected">单曲</span>
+            <span class="nav-option">歌单</span>
+            <span class="nav-option">歌手</span>
+            <span class="nav-option">声音</span>
+            <span class="nav-option">播客</span>
+            <span class="nav-option">歌词</span>
+            <span class="nav-option">专辑</span>
+            <span class="nav-option">MV</span>
+            <span class="nav-option">用户</span>
+        </div>
+    </div>
+    <div class="list-layout list-head">
+        <div>#</div>
+        <div>标题</div>
+        <div>专辑</div>
+        <div>喜欢</div>
+        <div>时长</div>
+    </div>
+    <!-- 收藏动效可以用input:checkbox加伪类但是.toggle()更方便:( -->
+
+</body>
+
+</script>
+
+</html>

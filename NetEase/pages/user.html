@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css_sheets/netease-import.css">
+    <script src="../scripts/jquery.fake.js"></script>
+</head>
+<body>
+    <div id="songs-top">
+        <img src="" alt="" class="album-pic-lg circ-bd">
+        <div style="display: flex; flex-direction: column;">
+            <div id="topic">
+                <div style="font-weight: bold; font-size: x-large;">User 1<input type="button" value="&#xf044;" id="edit"></div>
+                <div>
+                    <span id="lvl">LV.5</span>
+                    <span id="gender">&#xf222;</span>
+                </div>
+                <div>
+                    <span>关注<span class="num">11</span></span>
+                    <span>点赞<span class="num">11</span></span>
+                </div>
+                <div id="sign">
+                    Lorem ipsum dolor sit amet consectetur adip
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="nav">
+        <span class="nav-option selected">歌单</span>
+        <span class="nav-option">动态</span>
+        <span class="nav-option">播客</span>
+    </div>
+</body>
+    <style>
+        input,.like,.list-fn{user-select: none;}
+
+        #songs-top {
+            display: flex;
+            align-items: stretch;
+            padding: 20px 0 0 0;
+        }
+
+        .album-pic-lg {
+            width: 200px;
+            height: 200px;
+            margin: 0 30px;
+            border-radius: 10px;
+        }
+        
+        .circ-bd{
+            border-radius: 50%;
+        }
+
+        .album-pic-sm{
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            margin-right: 10px;
+        }      
+        #topic{
+            display: flex;
+            flex-direction: column;
+        }
+
+        #edit{
+            outline: none;
+            border: none;
+            background-color: transparent;
+            font-family: "FontAwesome";
+            font-size: large;
+            color: grey;
+            cursor: pointer;
+            padding: 5px;
+        }
+        #topic>div:nth-child(2){
+            height: 40px;
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        #topic>div:nth-child(3){
+            display: flex;
+            justify-content: space-between;
+            width: 130px;
+            font-weight: bold;
+        }
+        span#lvl{
+            padding: 5px 5px;
+            border: 1px solid gray;
+            color: rgb(70, 70, 70);
+            background-color:gainsboro;
+            border-radius: 5px;
+            font-size: x-small;
+        }
+        span#gender{
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            margin: 0 5px;
+            background-color: aliceblue;
+            font-family: "FontAwesome";
+            font-size: small;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #3894f7;
+        }
+        span.num{
+            padding-left: 5px;
+            font-size: 90%;
+        }
+
+        #sign{
+            font-weight: small;
+            font-size: 90%;
+            color: gainsboro;
+            padding: 10px 0;
+            max-width: 400px;
+        }
+        
+    </style>
+    <script>
+$(".nav-option").clicker(e=>{
+    $(".nav-option").removeClass("selected");
+    e.target.addClass("selected");
+});
+    </script>
+</html>
