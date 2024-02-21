@@ -8,15 +8,17 @@
     <link rel="stylesheet" href="../css_sheets/netease-import.css">
     <script src="../scripts/jquery.fake.js"></script>
     <style>
-        input,.like,.list-fn{user-select: none;}
+        input, .like, .list-fn {
+            user-select: none;
+        }
+
         #songs-top {
             display: flex;
             align-items: stretch;
             margin: 20px 0 0 0;
         }
 
-
-        span.list-fn{
+        span.list-fn {
             padding: 10px;
             border-radius: 5px;
             cursor: pointer;
@@ -24,16 +26,23 @@
             border: 1px solid #000;
             font-family: "FontAwesome";
         }
-        span.list-fn>span{font-weight: 900; padding: 0 2px;}
 
-        #playall{color: #fff; background-color: #ff3838;}
-        
-        #topic{
+        span.list-fn>span {
+            font-weight: 900;
+            padding: 0 2px;
+        }
+
+        #playall {
+            color: #fff;
+            background-color: #ff3838;
+        }
+
+        #topic {
             display: flex;
             flex-direction: column;
         }
 
-        #topic>a{
+        #topic>a {
             height: 40px;
             display: flex;
             align-items: center;
@@ -41,7 +50,8 @@
             font-size: small;
             margin-top: 10px;
         }
-        #topic>a>img{
+
+        #topic>a>img {
             width: 30px;
             height: 30px;
             border-radius: 50%;
@@ -88,6 +98,7 @@
     </div>
 </body>
 <script>
-    $(".like").clicker(a=>a.target.toggle("liked"));
+    $(".like").clicker(a => a.target.toggle("liked"));
 </script>
+
 </html>

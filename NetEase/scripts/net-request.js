@@ -50,9 +50,9 @@ class Song {
 let ne = {
     ports: {
         // 登录
-        login_phone: "http://codeman.ink/api/login/cellphone",
-        send_captcha: "http://codeman.ink/api/captcha/sent",
-        check_captcha: "http://codeman.ink/api/captcha/verify",
+        qr_key: "http://codeman.ink/api/login/qr/key",
+        qr_create: "http://codeman.ink/api/login/qr/create",
+        qr_check: "http://codeman.ink/api/login/qr/check",
         login_status: "http://codeman.ink/api/login/status",
         // 搜索相关
         hot_search: "http://codeman.ink/api/search/hot",
@@ -97,6 +97,19 @@ let ne = {
             console.error(error);
         }
     },
+    /** 将歌词时间点转换为currentTime
+     * @param {String} str @returns {Number}
+     */
+    lrcMark: (str) => {
+        let reg = /^(\d\d):(\d\d)\.(\d\d)$/g;
+        return Number(str.replace(reg, ($0, $1, $2, $3) => {
+            let min = Number($1) * 60,
+                sec = Number($2),
+                milisec = Number($3) / 100;
+            return (min + sec + milisec).toString();
+        }));
+    },
 };
 
 const { ports } = ne;
+

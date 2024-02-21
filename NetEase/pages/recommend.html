@@ -51,7 +51,7 @@
                 $(".list-item", body).each((item, i) => {
                     let $outer = (a) => $(a, parent.document.body);
                     // 点击事件分为：换歌曲信息，改播放源，加载歌词，加载评论数量
-                    item.clicker(() => {
+                    item.on("dblclick",() => {
                         let singl = json.playlist.tracks[i];
                         // 1st 换源
                         ne.request(addCommand(ports.songUrl, { id: singl.id.toString(), level: "higher" })).then(urlJson => {
@@ -71,38 +71,35 @@
                         // 3rd 请求歌词
                         ne.request(addCommand(ports.lyric, { id: singl.id.toString() })).then((lrcJson) => {
                             let str = lrcJson.lrc.lyric;
-                            console.log(str.split("\n"));
                             let wordsLrc = str.split("\n").map((i) => i.replace(/\[\d\d:\d\d.\d+\]\s*/, ""));
                             $outer("#lyrics").ins("");
-                            console.log(wordsLrc);
                             wordsLrc.forEach((i) => $outer("#lyrics").plus(`<span class="single-line">${i}</span>`));
                         });
-                        //4rd get评论数量，加载评论
-                        ne.request(addCommand(ports.comment, { id: singl.id.toString(), limit: "20" })).then((json) => {
+                        //4rd 加载评论
+                        ne.request(addCommand(ports.comment, { id: singl.id.toString() })).then((json) => {
                             $outer(".fn-icon sup")[0].ins(json.total.toString());
-                            let { body } = $outer("iframe")[parent.frame.comment].contentDocument, { hotComments: cmts } = json;
+                            let { body } = $outer("iframe")[parent.frame.comment].contentDocument,
+                                cmts = json.hotComments.length ? json.hotComments : json.comments;
                             while ($("#hot-comment .comment-box", body).length > 0) {
-                                $(body).removeChild($("#hot-comment .comment-box", body)[0]);
+                                $("#hot-comment",body).removeChild($("#hot-comment .comment-box", body)[0]);
                             }
-                            cmts.forEach((everyC) => {
-                                let t = new Date(everyC.time);
-                                let nodeForComment = $(
-                                    `<div class="comment-box">
+                            cmts.forEach((everyC) => {                                
+                                let nodeForComment = $(`
+                                <div class="comment-box">
                                     <div id="user-avatar">
                                         <img src="${everyC.user.avatarUrl}" alt="" />
                                     </div>
                                     <div id="comment-word">
                                         <div style="color: #0c73c2;">${everyC.user.nickname}</div>
                                         <div>${everyC.content}</div>
-                                        <div id="date">${t.getFullYear().toString()}/${t.getMonth().toString()}/${t.getDate().toString()}</div>
+                                        <div id="date">${everyC.timeStr}</div>
                                     </div>
                                     <div id="comment-fn">
                                         <input type="button" value="&#xf164;" id="thumb">
                                         <input type="button" value="&#xf064;">
                                         <input type="button" value="&#xf4ad;">
                                     </div>
-                                </div>`
-                                );
+                                </div>`);
                                 $("#thumb", nodeForComment).clicker((a) => { a.target.toggle("clicked"); });
                                 $("#head p", body).ins($outer("#song-name").ins());
                                 // 0专辑，1歌手
@@ -111,7 +108,7 @@
                                 $("#head img", body)[0].src = $outer("#album img")[0].src;
                                 $("#hot-comment", body).apd(nodeForComment);
                             });
-                        })
+                        });
                     });
                 });
             });
@@ -267,6 +264,7 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            cursor: pointer;
         }
 
         .list-card .view-count {

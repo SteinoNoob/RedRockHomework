@@ -47,6 +47,7 @@
             display: flex;
             position: absolute;
             transform: translateY(800px);
+            z-index: 5;
         }
 
         #play-pg>div:first-child {
@@ -167,6 +168,7 @@
             box-shadow: -5px -5px 10px 0px #949494, 5px 5px 10px 0px #949494;
             font-weight: lighter;
             animation: htbx-appear 0.3s;
+            z-index: 4;
         }
 
         #hint-box.selected{
@@ -195,11 +197,9 @@
         #hint-box>div:nth-of-type(-n+3)>span{
             color: var(--ne-lred);
         }
-
     </style>
     <title>网易云音乐</title>
 </head>
-
 <body>
     <div id="top-header">
         <img src="../pictures/logo&slogan.png" id="logo" />
@@ -230,7 +230,7 @@
         </div>
     </div>
     <iframe src="../pages/recommend.html" frameborder="0" class="selected"></iframe>
-    <iframe src="../pages/comment.html" frameborder="0"></iframe>
+    <iframe src="../pages/comment.html" frameborder="0" style="z-index: 3;"></iframe>
     <iframe src="../pages/user.html" frameborder="0"></iframe>
     <iframe src="../pages/search-result.html" frameborder="0"></iframe>
     <iframe src="../pages/songs.html" frameborder="0"></iframe>
@@ -253,7 +253,7 @@
             </div>
             <div>
                 <audio controls>
-                    <source src="../testaudio/smile.flac" />
+                    <source src="" />
                 </audio>
                 <input type="range" name="" id="progress" step="1" min="0" value="0" max />
             </div>
@@ -263,8 +263,7 @@
             <div id="vol-box">
                 <input type="range" name="" id="volume" value="1" step="0.01" min="0" max="1" />
             </div>
-            <span class="fn-icon">&#xf4ad;<sup>999+</sup></span>
-            <!-- 评论数$(".fn-icon sup")[0] -->
+            <span class="fn-icon">&#xf4ad;<sup></sup></span>
             <span class="fn-icon">&#xf0c9;</span>
         </div>
     </div>

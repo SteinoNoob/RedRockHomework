@@ -1,18 +1,18 @@
-// 图片预加载 before DOM Loading
+// 默认封面图片
 var img = new Image();
 img.src = host_name + "/pictures/logo-original.svg";
 $("#album img")[0].src = host_name + "/pictures/logo-original.svg";
 
 // 方法和变量
-var frame={
-    hashArray: ["recommend","comment","user","search-result","songs","edit-info"],
+var frame = {
+    hashArray: ["recommend", "comment", "user", "search-result", "songs", "edit-info"],
     recommend: 0,
     comment: 1,
     user: 2,
     searchResult: 3,
     songs: 4,
     editInfo: 5,
-    open: (index)=>{
+    open: (index) => {
         $("iframe").removeClass("selected");
         $("iframe")[index].addClass("selected");
     }
@@ -20,88 +20,97 @@ var frame={
 /** 搜索页曲目加载异步方法
  * @param {String} src 请求口
  */
-songLoadForSearchPage=(src)=>{
+songLoadForSearchPage = (src) => {
     frame.open(frame.searchResult);
-    let {body}=$("iframe.selected")[0].contentDocument;
-    while($(".list-item",body).length>0){
-        $(body).removeChild($(".list-item",body)[0]);
+    let { body } = $("iframe.selected")[0].contentDocument;
+    while ($(".list-item", body).length > 0) {
+        $(body).removeChild($(".list-item", body)[0]);
     }
-    ne.request(src).then(json=>{
+    ne.request(src).then(json => {
         // 填DOM
-        let {songs}=json.result;
-        for (let i = 0; i < (songs.length>=30?30:songs.length); ++i) {
-            const each=songs[i];
-            let index=(i+1<10) ? "0"+(i+1) : i+1,
-                {name}=each,
-                singer=each.artists[0].name,
-                albumName=each.album.name,
-                {id}=each,
-                song=new Song(index,"",name,singer,albumName,ne.format(each.duration,true),id);
-                $(".like",song.node).clicker((a)=>a.target.toggle("liked"));
-                song.add(body);
+        let { songs } = json.result;
+        for (let i = 0; i < (songs.length >= 30 ? 30 : songs.length); ++i) {
+            const each = songs[i];
+            let index = (i + 1 < 10) ? "0" + (i + 1) : i + 1,
+                { name } = each,
+                singer = each.artists[0].name,
+                albumName = each.album.name,
+                { id } = each,
+                song = new Song(index, "", name, singer, albumName, ne.format(each.duration, true), id);
+            $(".like", song.node).clicker((a) => a.target.toggle("liked"));
+            song.add(body);
         }
-        $("strong",body).ins($("#top-searchbox").val());
-        $("strong~span",body).ins(String(json.result.songCount));
+        $("strong", body).ins($("#top-searchbox").val());
+        $("strong~span", body).ins(String(json.result.songCount));
         $("#top-searchbox").val("");
         return json;
-    }).then(json=>{
+    }).then(json => {
         // 加载图片
-        const {songs}=json.result;
-        for (let i = 0; i < (songs.length>=30?30:songs.length); ++i) {
+        const { songs } = json.result;
+        for (let i = 0; i < (songs.length >= 30 ? 30 : songs.length); ++i) {
             const each = songs[i];
-            ne.request(addCommand(ports.songDetail,{ids: String(each.id)})).then((detail)=>{
-                let imgsrc=detail.songs[0].al.picUrl;
-                $("img",body)[i].src=imgsrc;
-            }); 
+            ne.request(addCommand(ports.songDetail, { ids: String(each.id) })).then((detail) => {
+                let imgsrc = detail.songs[0].al.picUrl;
+                $("img", body)[i].src = imgsrc;
+            });
         }
         return json;
-    }).then((json)=>{
-            $(".list-item",body).each((item,i)=>{
-                // 点击事件分为：换歌曲信息，改播放源，加载歌词，加载评论数量
-                item.clicker(()=>{
-                    let singl=json.result.songs[i];
-                    // 1st 换源
-                    ne.request(addCommand(ports.songUrl,{id: singl.id.toString(),level: "higher"})).then(urlJson=>{
-                        console.log(urlJson);$("source")[0].src=urlJson.data[0].url;
-                        player.audio.pause();
-                        player.audio.load();
-                    });    
-                    // 2nd DOM操作
-                    $("span#title").ins(singl.name);
-                    $("span#author").ins(singl.album.name);
-                    $("#album img")[0].src=$("img",item)[0].src;
-                    $("#song-name").ins(singl.name);
-                    $("#inf span")[0].ins(`专辑：${singl.album.name}`);
-                    $("#inf span")[1].ins(`歌手：${singl.artists[0].name}`);
-                    $("#play-pg").css({background_image: `url("${$("#album img")[0].src}")`});
-                    img.src=$("#album img")[0].src;
-                    // 3rd 请求歌词
-                    ne.request(addCommand(ports.lyric,{id: singl.id.toString()})).then((lrcJson)=>{
-                        let str=lrcJson.lrc.lyric;
-                        console.log(str.split("\n"));
-                        let wordsLrc=str.split("\n").map((i)=>i.replace(/\[\d\d:\d\d.\d+\]\s*/,""));
-                        $("#lyrics").ins("");
-                        console.log(wordsLrc);
-                        wordsLrc.forEach((i)=>$("#lyrics").plus(`<span class="single-line">${i}</span>`));
-                    });
-                    //4rd get评论数量，加载评论
-                    ne.request(addCommand(ports.comment,{id: singl.id.toString(),limit: "20"})).then((json)=>{
-                        $(".fn-icon sup")[0].ins(json.total.toString());
-                        let {body}=$("iframe")[frame.comment].contentDocument,{hotComments: cmts}=json;
-                        while($("#hot-comment .comment-box",body).length>0){
-                            $(body).removeChild($("#hot-comment .comment-box",body)[0]);
-                        }
-                        cmts.forEach((everyC)=>{
-                            let t=new Date(everyC.time);
-                            let nodeForComment=$(
-                                `<div class="comment-box">
+    }).then((json) => {
+        $(".list-item", body).each((item, i) => {
+            // 点击事件分为：换歌曲信息，改播放源，加载歌词，加载评论数量
+            item.on("dblclick", () => {
+                let singl = json.result.songs[i];
+                // 1st 换源
+                ne.request(addCommand(ports.songUrl, { id: singl.id.toString(), level: "higher" })).then(urlJson => {
+                    $("source")[0].src = urlJson.data[0].url;
+                    player.audio.pause();
+                    player.audio.load();
+                });
+                // 2nd DOM操作
+                $("span#title").ins(singl.name);
+                $("span#author").ins(singl.album.name);
+                $("#album img")[0].src = $("img", item)[0].src;
+                $("#song-name").ins(singl.name);
+                $("#inf span")[0].ins(`专辑：${singl.album.name}`);
+                $("#inf span")[1].ins(`歌手：${singl.artists[0].name}`);
+                $("#play-pg").css({ background_image: `url("${$("#album img")[0].src}")` });
+                img.src = $("#album img")[0].src;
+                // 3rd 请求歌词
+                ne.request(addCommand(ports.lyric, { id: singl.id.toString() })).then((lrcJson) => {
+                    let str = lrcJson.lrc.lyric,
+                        lrcReg = /^\[(\d\d:\d\d.\d\d)\d*.*\]\s*(.+)/g,
+                        points = [],
+                        wordsLrc = str.split("\n").map((i) => i.replace(lrcReg, ($0, $1, $2) => { points.push(ne.lrcMark($1)); return $2; }));
+                    // let interval=setInterval(()=>{
+                    //     for(let i=0;i<points.length;++i){
+                    //         // 秒数相等
+                    //         if(player.audio.currentTime.exFixed(1)===points[i].exFixed(1)){
+                    //             let ly=$("#lyrics");
+                    //             ly.scrollTop=i*50.8;
+                    //         }
+                    //     }
+                    // },200);
+                    $("#lyrics").ins("");
+                    wordsLrc.forEach((i) => $("#lyrics").plus(`<span class="single-line">${i}</span>`));
+                });
+                //4rd get评论数量，加载评论
+                ne.request(addCommand(ports.comment, { id: singl.id.toString() })).then((json) => {
+                    $(".fn-icon sup")[0].ins(json.total.toString());
+                    let { body } = $("iframe")[frame.comment].contentDocument,
+                        cmts = json.hotComments.length ? json.hotComments : json.comments;
+                    while ($("#hot-comment .comment-box", body).length > 0) {
+                        $("#hot-comment", body).removeChild($("#hot-comment .comment-box", body)[0]);
+                    }
+                    cmts.forEach((everyC) => {
+                        let nodeForComment = $(
+                            `<div class="comment-box">
                                     <div id="user-avatar">
                                         <img src="${everyC.user.avatarUrl}" alt="" />
                                     </div>
                                     <div id="comment-word">
                                         <div style="color: #0c73c2;">${everyC.user.nickname}</div>
                                         <div>${everyC.content}</div>
-                                        <div id="date">${t.getFullYear().toString()}/${t.getMonth().toString()}/${t.getDate().toString()}</div>
+                                        <div id="date">${everyC.timeStr}</div>
                                     </div>
                                     <div id="comment-fn">
                                         <input type="button" value="&#xf164;" id="thumb">
@@ -109,19 +118,18 @@ songLoadForSearchPage=(src)=>{
                                         <input type="button" value="&#xf4ad;">
                                     </div>
                                 </div>`
-                                );
-                                $("#thumb",nodeForComment).clicker((a)=>{a.target.toggle("clicked");});
-                                $("#head p",body).ins($("#song-name").ins());
-                                // 0专辑，1歌手
-                                $("#head span",body)[0].ins($("#inf span")[0].ins());
-                                $("#head span",body)[1].ins($("#inf span")[1].ins());
-                                $("#head img",body)[0].src=$("#album img")[0].src;
-                            $("#hot-comment",body).apd(nodeForComment);
-                        });
-                    })
-                });
+                        );
+                        $("#thumb", nodeForComment).clicker((a) => { a.target.toggle("clicked"); });
+                        $("#head p", body).ins($("#song-name").ins());
+                        // 0专辑，1歌手
+                        $("#head span", body)[0].ins($("#inf span")[0].ins());
+                        $("#head span", body)[1].ins($("#inf span")[1].ins());
+                        $("#head img", body)[0].src = $("#album img")[0].src;
+                        $("#hot-comment", body).apd(nodeForComment);
+                    });
+                })
             });
-
+        });
     });
 };
 
@@ -184,15 +192,15 @@ function draw(img) {
 };
 
 // 热搜加载
-(function(){
-    let hotData=ne.request(ports.hot_search);
-    hotData.then((json)=>{
-        json.result.hots.forEach((item,index)=>
-            $("#hint-box").plus(`<div><span>${index+1}</span>${item.first}</div>\n`)
-        );       
-    }).then(()=>{
-        $("#hint-box div").each((i)=>{
-            i.on("mouseover",()=>
+(function () {
+    let hotData = ne.request(ports.hot_search);
+    hotData.then((json) => {
+        json.result.hots.forEach((item, index) =>
+            $("#hint-box").plus(`<div><span>${index + 1}</span>${item.first}</div>\n`)
+        );
+    }).then(() => {
+        $("#hint-box div").each((i) => {
+            i.on("mouseover", () =>
                 $("#top-searchbox").val(i.childNodes[1].data)
             )
         })
@@ -200,8 +208,13 @@ function draw(img) {
 })();
 
 /* 自此开始，批量给DOM添加事件 */
+// 检查登录状态
+// $(document).ready(()=>{
+//     ne.request(ports.login_status).then()
+// });
+
 // 唱片刷新
-$(img).on("load",(e)=>draw(e.target));
+$(img).on("load", (e) => draw(e.target));
 
 // 播放页面上升动画
 $("#album").clicker(() => $("#play-pg").toggle("animated"));
@@ -210,10 +223,10 @@ $("#album").clicker(() => $("#play-pg").toggle("animated"));
 player.audio.on("loadedmetadata", () => {
     let len = player.audio.duration;
     player.bar.max = len;
-}).on("play",()=>{
+}).on("play", () => {
     $(".playbtn")[2].val("\uf04c");
     $("#canvas").addClass("animated");
-}).on("pause",()=>{
+}).on("pause", () => {
     $(".playbtn")[2].val("\uf04b");
     $("#canvas").removeClass("animated");
 });
@@ -254,16 +267,16 @@ $("span.fn-icon")[0].clicker(() => {
 });
 // 评论按钮
 $(".fn-icon")[1].clicker(() => {
-    if(!$("iframe")[frame.comment].classList.contains("selected")){
-        frame.open(frame.comment);
-        location.hash="#comment";
+    let f = $("iframe")[frame.comment];
+    if (!f.classList.contains("selected")) {
+        f.addClass("selected");
     } else {
-        history.back();
+        f.removeClass("selected");
     }
 });
 // 右侧边栏曲目卡
-$(".side-card").each((ele)=>
-    ele.clicker(()=>{
+$(".side-card").each((ele) =>
+    ele.clicker(() => {
         $(".side-card").removeClass("selected");
         ele.addClass("selected");
     })
@@ -271,30 +284,30 @@ $(".side-card").each((ele)=>
 
 $(".fn-icon")[2].clicker(() => $("#side-bar").toggle("selected"));
 // 收藏
-$("a.select.sideico")[0].clicker(()=>{
+$("a.select.sideico")[0].clicker(() => {
     frame.open(frame.songs);
-    ne.request(ports.login_status).then((json)=>{
+    ne.request(ports.login_status).then((json) => {
         console.log(json);
     })
 });
 // 搜索
 $("#top-searchbox")
-    .on("focus",()=>$("#hint-box").addClass("selected"))
-    .on("blur",()=>$("#hint-box").removeClass("selected"))
-    .on("keypress",e=>{
-        if(e.keyCode===13){
+    .on("focus", () => $("#hint-box").addClass("selected"))
+    .on("blur", () => $("#hint-box").removeClass("selected"))
+    .on("keypress", e => {
+        if (e.keyCode === 13) {
             $("#hint-box").removeClass("selected");
             $("#top-searchbox").blur();
-            let src=addCommand(ports.search,{keywords: e.target.val()});
+            let src = addCommand(ports.search, { keywords: e.target.val() });
             songLoadForSearchPage(src);
-        }  
+        }
     });
 
 // 左侧边栏
-$(".select")[0].clicker(()=>frame.open(frame.recommend));
+$(".select")[0].clicker(() => frame.open(frame.recommend));
 
-$(".select").each((i)=>{
-    i.clicker(()=>{
+$(".select").each((i) => {
+    i.clicker(() => {
         $(".select").removeClass("selected");
         i.addClass("selected");
     })

@@ -5,22 +5,22 @@
 (function (window, undefined) {
     "use strict";
 	Math.root=function (x,y) {
-			var num=Math.pow(1/x,-1/y), lang=Math.round(num)-num;
-				if (Math.abs(lang)<1e-16) return Math.round(num);
-				else if (x<0 && y%2===1) return -Math.pow(1/-x,-1/y);
-				else if (x<0 && y%2===0) throw new Error("负数没有平方根");
-				else return num;
+		var num=Math.pow(1/x,-1/y), lang=Math.round(num)-num;
+			if (Math.abs(lang)<1e-16) return Math.round(num);
+			else if (x<0 && y%2===1) return -Math.pow(1/-x,-1/y);
+			else if (x<0 && y%2===0) throw new Error("负数没有平方根");
+			else return num;
 	};
 	Math.variance=function () {
-			var number=0,arr=[];
-				for (var t=0;t<arguments.length;t++) { arr.push(arguments[t]); }
-				for (var i=0;i<arr.length;i++) { number+=Math.pow(arr[i]-arr.avg(),2); }
-			return number/arguments.length;		
+		var number=0,arr=[];
+			for (var t=0;t<arguments.length;t++) { arr.push(arguments[t]); }
+			for (var i=0;i<arr.length;i++) { number+=Math.pow(arr[i]-arr.avg(),2); }
+		return number/arguments.length;		
 	};
 	Math.fact=function (num) {
-			if (num===0||num===1) return 1;
-			if (num<0) throw new Error("计算无效");
-			return num*this.fact(num-1);		
+		if (num===0||num===1) return 1;
+		if (num<0) throw new Error("计算无效");
+		return num*this.fact(num-1);		
 	};
 	Number.prototype.exFixed=function (x) {
 		return Math.round((this + Math.pow(2,-52)) * Math.pow(10,x)) / Math.pow(10,x);
@@ -96,8 +96,8 @@
 			}			
 			else if (regSingEle.test(s)) {
 				var dom = document.createElement(s.replace(regSingEle, function($, $1){ return $1; }));
-					JQuery.extend.call(dom,JQuery.prototype);
-					return dom;
+				JQuery.extend.call(dom,JQuery.prototype);
+				return dom;
 			}
             else if(reg_DOMStr.test(s)){
                 var parser=new DOMParser(), dom=parser.parseFromString(s,"text/html").querySelector("body>:first-child");

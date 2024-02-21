@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <title>红岩第二次作业</title>
     <script src="../scripts/jquery.fake.js"></script>
+    <script src="../scripts/net-request.js"></script>
     <link rel="stylesheet" href="../css_sheets/netease-import.css">
     <style>
-        label,input[type="checkbox"],input[type="button"],select,a {
+        label, input[type="checkbox"], input[type="button"], select, a {
             cursor: pointer;
         }
 
@@ -17,23 +18,9 @@
             height: 660px;
             position: fixed;
             left: calc(50% - 217.5px);
-            right: calc(50% - 217.5px);/*absolute middle*/
+            right: calc(50% - 217.5px);
+            /*absolute middle*/
             border-radius: 2px;
-        }
-
-        #quit {
-            font-size: 220%;
-            color: rgb(167, 167, 167);
-            position: absolute;
-            right: 0;
-            padding: 10px 15px 10px 15px;
-            border: none;
-            background-color: transparent;
-            transition-duration: 0.2s;
-        }
-
-        #quit:hover {
-            color: rgb(125, 125, 125);
         }
 
         .icon {
@@ -232,13 +219,18 @@
         #btmline a:hover {
             color: rgb(0, 56, 99);
         }
+
+        .qr-code {
+            display: block;
+            width: 200px;
+            height: 200px;
+        }
     </style>
 </head>
 
 <body>
     <div style="text-align: -webkit-center;">
         <div id="mylogin">
-            <input id="quit" value="&times;" type="button" />
             <svg t="1698815368046" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
                 p-id="2090" width="100" height="150">
                 <path
@@ -267,7 +259,7 @@
                 </span>
                 <div>
                     <a href="javascript:void(0);">忘记密码</a>
-                    <a href="javascript:void(0);">验证码登录</a>
+                    <a>二维码登录</a>
                 </div>
             </div>
             <input type="button" id="login" value="登&nbsp;&nbsp;录" />
@@ -285,7 +277,38 @@
         </div>
     </div>
 </body>
-    <script>
-        $("#tick").clicker(function () { $("#tick").toggle("tick2") });
-    </script>
+<script>
+    $("#tick").clicker(() => $("#tick").toggle("tick2"));
+    $("a")[1].clicker(() => {
+        ne.request(addCommand(ports.qr_key, { timestamp: Date.now() })).then((json) => {
+            let qrCode = addCommand(ports.qr_create, {
+                key: json.data.unikey,
+                qrimg: true,
+                timestamp: Date.now()
+            });
+            ne.request(qrCode).then((qrJson) => {
+                let qr = $("<img>").addClass("qr-code").attr("src", qrJson.data.qrimg);
+                $("#mylogin>*:not(svg)").hide();
+                $("#mylogin").apd(qr).plus("<div>使用网易云app扫码登录</div>");
+            });
+            return json;
+        }).then((json) => {
+            let time1 = Date.now();
+            let loop = setInterval(() => {
+                ne.request(addCommand(ports.qr_check, {
+                    key: json.data.unikey,
+                    noCookie: true,
+                    timestamp: Date.now()
+                })).then((resMsg) => {
+                    let time2 = Date.now();
+                    if ((resMsg.code === 803 || resMsg.code === 502) && time2 - time1 <= 300000) {
+                        location.href = `${host_name}/pages/main_page.html`;
+                        clearInterval(loop);
+                    }
+                }).catch(() => clearInterval(loop));
+            }, 1000);
+        });
+    });
+</script>
+
 </html>

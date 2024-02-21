@@ -31,20 +31,13 @@
 }
 
 :root {
-    --ne-gray: #A9ADB6;
-    /*字体灰*/
-    --ne-lred: #ff3838;
-    /*鲜红*/
-    --ne-sgray: #787F8D;
-    /*侧边灰*/
-    --ne-cmtbar: #F0F3F6;
-    /*输入框背景*/
-    --ne-cmtbgc: #F7F9FC;
-    /*评论背景*/
-    --ne-lsbgc: #F0F3F6;
-    /*左边栏背景*/
-    --ne-lgray: #F2F3F4;
-    /*浅灰*/
+    --ne-gray: #A9ADB6; /*字体灰*/
+    --ne-lred: #ff3838; /*鲜红*/
+    --ne-sgray: #787F8D; /*侧边灰*/
+    --ne-cmtbar: #F0F3F6; /*输入框背景*/
+    --ne-cmtbgc: #F7F9FC; /*评论背景*/
+    --ne-lsbgc: #F0F3F6; /*左边栏背景*/
+    --ne-lgray: #F2F3F4; /*浅灰*/
 }
 
 /* 歌曲列表样式 */
@@ -62,8 +55,7 @@
     border-bottom: 1px solid #b4b4b4;
 }
 
-.list-layout,
-.list-head {
+.list-layout, .list-head {
     margin-left: 30px;
 }
 
