@@ -1,0 +1,49 @@
+input, .like, .list-fn {
+    user-select: none;
+}
+
+#songs-top.songs {
+    display: flex;
+    align-items: stretch;
+    margin: 20px 0 0 0;
+}
+
+span.list-fn {
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    border: 1px solid #000;
+    font-family: "FontAwesome";
+}
+
+span.list-fn>span {
+    font-weight: 900;
+    padding: 0 2px;
+}
+
+#playall {
+    color: #fff;
+    background-color: #ff3838;
+}
+
+#topic {
+    display: flex;
+    flex-direction: column;
+}
+
+#topic>a {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    font-weight: lighter;
+    font-size: small;
+    margin-top: 10px;
+}
+
+#topic>a>img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 5px 10px 5px 0;
+}

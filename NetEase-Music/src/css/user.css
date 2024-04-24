@@ -1,0 +1,85 @@
+input,.like,.list-fn{user-select: none;}
+
+#songs-top.user {
+    display: flex;
+    align-items: stretch;
+    padding: 20px 0 0 0;
+}
+
+.album-pic-lg {
+    width: 200px;
+    height: 200px;
+    margin: 0 30px;
+    border-radius: 10px;
+}
+
+.circ-bd{
+    border-radius: 50%;
+}
+
+.album-pic-sm{
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    margin-right: 10px;
+}      
+#topic{
+    display: flex;
+    flex-direction: column;
+}
+
+#edit{
+    outline: none;
+    border: none;
+    background-color: transparent;
+    font-family: "FontAwesome";
+    font-size: large;
+    color: grey;
+    cursor: pointer;
+    padding: 5px;
+}
+#topic>div:nth-child(2){
+    height: 40px;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+#topic>div:nth-child(3){
+    display: flex;
+    justify-content: space-between;
+    width: 130px;
+    font-weight: bold;
+}
+span#lvl{
+    padding: 5px 5px;
+    border: 1px solid gray;
+    color: rgb(70, 70, 70);
+    background-color:gainsboro;
+    border-radius: 5px;
+    font-size: x-small;
+}
+span#gender{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin: 0 5px;
+    background-color: aliceblue;
+    font-family: "FontAwesome";
+    font-size: small;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3894f7;
+}
+span.num{
+    padding-left: 5px;
+    font-size: 90%;
+}
+
+#sign{
+    font-weight: small;
+    font-size: 90%;
+    color: gainsboro;
+    padding: 10px 0;
+    max-width: 400px;
+}

@@ -1,0 +1,22 @@
+html[search-result] {
+    background-color: var(--ne-cmtbgc);
+}
+
+input, .like {
+    user-select: none;
+}
+
+#songs-top.search-result {
+    margin: 30px 0 0 0;
+}
+
+#songs-top.search-result>div:not(.nav) {
+    color: var(--ne-gray);
+    margin-left: 30px;
+}
+
+#songs-top.search-result strong {
+    font-size: x-large;
+    color: #000;
+    padding: 0 5px 0 0;
+}

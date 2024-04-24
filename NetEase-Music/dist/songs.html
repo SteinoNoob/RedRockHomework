@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<script defer src="homepage.js"></script><script defer src="login.js"></script><script defer src="comment.js"></script><script defer src="edit-info.js"></script><script defer src="search-result.js"></script><script defer src="recommend.js"></script><script defer src="songs.js"></script><script defer src="user.js"></script></head>
+
+<body>
+    <div id="songs-top" class="songs">
+        <img src="" alt="" class="album-pic-lg">
+        <div style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div id="topic">
+                <span style="font-weight: bold; font-size: x-large;">我喜欢的音乐</span>
+                <a><img src="" alt="">User 1</a>
+            </div>
+            <div>
+                <span class="list-fn" id="playall"><span>&#xf04b;</span>播放全部</span>
+                <span class="list-fn"><span>&#xf34a;</span>下载</span>
+                <span class="list-fn"><span>&#xf141;</span></span>
+            </div>
+        </div>
+    </div>
+    <div class="list-layout list-head">
+        <div>#</div>
+        <div>标题</div>
+        <div>专辑</div>
+        <div>喜欢</div>
+        <div>时长</div>
+    </div>
+    <!-- 收藏动效可以用input:checkbox加伪类但是.toggle()更方便:( -->
+    <div class="list-layout list-item">
+        <div>01</div>
+        <div class="main-item">
+            <img src="" alt="" class="album-pic-sm">
+            <div style="display: flex; flex-direction: column;">
+                <span class="song-name">sdf</span>
+                <span class="author">rgqerh</span>
+            </div>
+        </div>
+        <div>ABC</div>
+        <div class="like">&#xf004;</div>
+        <div>05:23</div>
+    </div>
+</body>
+
+</html>

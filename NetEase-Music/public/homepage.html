@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网易云音乐</title>
+</head>
+<body class="home">
+    <div id="top-header">
+        <img src="" id="logo" />
+        <span>
+            <input type="text" name="" id="top-searchbox" placeholder="音乐/视频/电台/用户" />
+        </span>
+        <img src="" alt="" srcset="" id="blank-avatar" />
+        <a href="login.html" id="login">登录</a>
+        <a href="" class="top-icon">&#xf553;</a>
+        <a href="" class="top-icon">&#xf013;</a>
+        <a href="" class="top-icon">&#xf0e0;</a>
+    </div>
+
+    <div id="select-sidebar">
+        <div id="sub1">
+            <a class="select selected">发现音乐</a>
+            <a class="select">播客</a>
+            <a class="select">视频</a>
+            <a class="select">关注</a>
+            <a class="select">直播</a>
+            <a class="select">私人漫游</a>
+        </div>
+        <div style="margin-top: 30px; padding-left: 10px;">
+            <span class="small">我的音乐</span>
+            <a class="select sideico"><span id="i1">我喜欢的音乐</span></a>
+            <a class="select sideico"><span id="i2">本地与下载</span></a>
+            <a class="select sideico"><span id="i3">最近播放</span></a>
+        </div>
+    </div>
+    <iframe src="recommend.html" frameborder="0" class="selected"></iframe>
+    <iframe src="comment.html" frameborder="0" style="z-index: 3;"></iframe>
+    <iframe src="user.html" frameborder="0"></iframe>
+    <iframe src="search-result.html" frameborder="0"></iframe>
+    <iframe src="songs.html" frameborder="0"></iframe>
+    <iframe src="edit-info.html" frameborder="0"></iframe>
+    <div id="btm">
+        <div id="album">
+            <img src="" />
+            <span style="display: flex; flex-direction: column;">
+                <span id="title">Unknown</span>
+                <span id="author">Unknown</span>
+            </span>
+        </div>
+        <div id="mainplay">
+            <div style="text-align: center;">
+                <input type="button" value="&#xf363;" class="playbtn" />
+                <input type="button" value="&#xf048;" class="playbtn" />
+                <input type="button" value="&#xf04b;" class="playbtn onplay" />
+                <input type="button" value="&#xf051;" class="playbtn" />
+                <input type="button" value="&#xf20a;" class="playbtn" />
+            </div>
+            <div>
+                <audio controls>
+                    <source src="" />
+                </audio>
+                <input type="range" name="" id="progress" step="1" min="0" value="0" max />
+            </div>
+        </div>
+        <div id="audio-fns">
+            <span class="fn-icon">&#xf6a8;</span>
+            <div id="vol-box">
+                <input type="range" name="" id="volume" value="1" step="0.01" min="0" max="1" />
+            </div>
+            <span class="fn-icon">&#xf4ad;<sup></sup></span>
+            <span class="fn-icon">&#xf0c9;</span>
+        </div>
+    </div>
+    <!-- 播放页 -->
+    <div id="play-pg">
+        <div>
+            <div id="record">
+                <canvas id="canvas"></canvas>
+            </div>
+            <div style="display: flex; flex-direction: column;">
+                <div id="song-name">Unknown</div>
+                <div id="inf">
+                    <span>专辑：Unknown</span>
+                    <span>歌手：UnKnown</span>
+                </div>
+                <div id="lyrics">
+                    <span class="single-line">this is the line 1</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 歌单 -->
+    <div id="side-bar">
+        <p style="padding: 10px 0 10px 10px;font-size: 120%;font-weight: bold; margin: 0;">播放列表
+            <sup style="font-weight: normal; font-size: 70%;">999</sup>
+        </p>
+        <div class="side-card">
+            <img src="" alt="" class="album-pic">
+            <div>
+                <div style="font-weight: bold;" named>Feel So Good</div>
+                <span style="font-weight: lighter;">LIQWYD</span>
+            </div>
+        </div>
+        <div class="side-card selected">
+            <img src="" alt="" class="album-pic">
+            <div>
+                <div style="font-weight: bold;" named>Feel So Good</div>
+                <span style="font-weight: lighter;">LIQWYD</span>
+            </div>
+        </div>
+    </div>    
+    <div id="hint-box">
+        <p>热搜榜</p>
+    </div>
+</body>
+</html>

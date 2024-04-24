@@ -1,0 +1,137 @@
+input {
+    outline: none;
+}
+
+html[comment] {
+    background-color: var(--ne-cmtbgc);
+}
+
+#head {
+    display: flex;
+}
+
+img.album-pic {
+    width: 60px;
+    height: 60px;
+    margin: 20px;
+    border-radius: 5px;
+}
+
+#comment-sender {
+    border: 1px solid var(--ne-gray);
+    margin: 0 10px;
+    height: 120px;
+    border-radius: 5px;
+    background-color: var(--ne-cmtbar);
+    flex-direction: column;
+    justify-content: space-between;
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+}
+
+#comment-sender>input[placeholder] {
+    background-color: transparent;
+    height: 50px;
+    vertical-align: middle;
+    padding: 0 10px;
+    border: none;
+    font-size: 110%;
+    outline: none;
+}
+
+#comment-sender>input[placeholder]::placeholder {
+    color: #c7c7c7;
+    font-weight: lighter;
+}
+
+.comment-box {
+    display: flex;
+    margin: 0 10px;
+    min-height: 100px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #bababa;
+}
+
+.comment-box>div {
+    flex: 1;
+}
+
+.comment-icon {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin: 10px;
+}
+
+.comment-icon span {
+    font-family: "FontAwesome";
+    padding: 5px;
+}
+
+.comment-icon input {
+    background-color: transparent;
+    border: none;
+    margin: 0 5px 0 10px;
+    border-left: 1px #c8c8c8 solid;
+}
+
+.comment-icon input, .comment-icon span {
+    color: #b0b0b0;
+    cursor: pointer;
+}
+
+#user-avatar {
+    max-width: 70px;
+}
+
+#user-avatar img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 15px 5px;
+    border: 1px solid #000;
+}
+
+#comment-fn {
+    max-width: 200px;
+    display: flex;
+    align-items: end;
+    justify-content: end;
+}
+
+#comment-fn input {
+    padding: 5px;
+    margin: 10px;
+    font-family: "FontAwesome";
+    font-size: 120%;
+}
+
+#comment-word {
+    display: flex;
+    flex-direction: column;
+}
+
+#comment-word div {
+    flex: 1;
+    margin-left: 10px;
+}
+
+#comment-word div:nth-child(1), #comment-word div:nth-child(3) {
+    padding: 5px 0;
+}
+
+#comment-fn input {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+}
+
+#comment-fn input.clicked {
+    font-weight: 900;
+}
+
+#date {
+    color: #bebebe;
+    font-size: small;
+}
